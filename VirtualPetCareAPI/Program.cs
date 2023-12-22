@@ -4,14 +4,18 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using VirtualPetCareAPI.Data;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
+using VirtualPetCareAPI.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllers();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -19,7 +23,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
-
 
 if (!app.Environment.IsDevelopment())
 {
