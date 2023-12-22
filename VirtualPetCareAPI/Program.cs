@@ -6,10 +6,17 @@ using VirtualPetCareAPI.Data;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
 using VirtualPetCareAPI.Profiles;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
+using VirtualPetCareAPI.Validators;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+//builder.Services.AddControllers();
+builder.Services.AddControllers()
+        .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserValidation>());
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
