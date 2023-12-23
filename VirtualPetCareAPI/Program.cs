@@ -9,7 +9,7 @@ using VirtualPetCareAPI.Profiles;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using VirtualPetCareAPI.Validators;
-
+using VirtualPetCareAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +42,8 @@ else
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<CustomExceptionMiddleware>();
 
 app.UseAuthorization();
 
